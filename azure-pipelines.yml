@@ -15,3 +15,14 @@ steps:
     rootFolderOrFile: '$(build.sourcesDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Git'
+    subscriptionId: 'd12d548a-2d41-4ee2-9078-e1551ee2ee96'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'gitwa'
+    location: 'Central US'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
+    deploymentMode: 'Incremental'
